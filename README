@@ -1,0 +1,84 @@
+NAME
+    Object::AUTHORITY - adds an AUTHORITY method to your class
+
+SYNOPSIS
+     {
+       package MyClass;
+       use Object::AUTHORITY;
+       BEGIN {
+         $MyClass::AUTHORITY = 'cpan:TOBYINK';
+         $MyClass::VERSION   = '0.001';
+       }
+     }
+ 
+     print MyClass->AUTHORITY . "\n";   # prints "cpan:TOBYINK\n";
+     MyClass->AUTHORITY('cpan:FOO');    # assertion fails, croaks.
+
+DESCRIPTION
+    This module adds an "AUTHORITY" function to your package, which works
+    along the same lines as the "VERSION" function.
+
+    The authority of a package can be defined like this:
+
+     package MyApp;
+     BEGIN { $MyApp::AUTHORITY = 'cpan:JOEBLOGGS'; }
+
+    The authority should be a URI identifying the person, team, organisation
+    or trained chimp responsible for the release of the package. The
+    pseudo-URI scheme "cpan:" is the most commonly used identifier.
+
+  "AUTHORITY"
+    Called with no parameters returns the authority of the module.
+
+  "AUTHORITY($test)"
+    If passed a test, will croak if the test fails. The authority is tested
+    against the test using something approximating Perl 5.10's smart match
+    operator. (Briefly, you can pass a string for "eq" comparison, a regular
+    expression, a code reference to use as a callback, or an array reference
+    that will be grepped.)
+
+  Utility Function
+    "Object::AUTHORITY::reasonably_smart_match($a, $b)"
+        Object::AUTHORITY exposes its smart match implementation in case
+        classes wish to reuse it for their own custom "AUTHORITY" methods.
+        (There are various interesting use cases for custom "AUTHORITY"
+        methods, just as there are for custom "can" and "isa" methods.)
+
+        The $a parameter is assumed to be a scalar.
+
+BUGS
+    Please report any bugs to
+    <http://rt.cpan.org/Dist/Display.html?Queue=Object-AUTHORITY>.
+
+SEE ALSO
+    *   *Object::AUTHORITY* (this module) - an AUTHORITY method for your
+        class
+
+    *   authority::shared - a more sophisticated AUTHORITY method for your
+        class
+
+    *   UNIVERSAL::AUTHORITY - an AUTHORITY method for every class
+        (deprecated)
+
+    *   UNIVERSAL::AUTHORITY::Lexical - an AUTHORITY method for every class,
+        within a lexical scope
+
+    *   authority - load modules only if they have a particular authority
+
+    Background reading: <http://feather.perl6.nl/syn/S11.html>,
+    <http://www.perlmonks.org/?node_id=694377>.
+
+AUTHOR
+    Toby Inkster <tobyink@cpan.org>.
+
+COPYRIGHT AND LICENCE
+    This software is copyright (c) 2011 by Toby Inkster.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
+DISCLAIMER OF WARRANTIES
+    THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
+    WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+    MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+

@@ -1,0 +1,34 @@
+---
+abstract: 'adds an AUTHORITY method to your class'
+author:
+  - 'Toby Inkster <tobyink@cpan.org>'
+build_requires:
+  ExtUtils::MakeMaker: 6.42
+  Test::More: 0.61
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
+distribution_type: module
+generated_by: 'Module::Install version 1.02'
+keywords: []
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+module_name: Object::AUTHORITY
+name: Object-AUTHORITY
+no_index:
+  directory:
+    - inc
+    - t
+    - xt
+requires:
+  Carp: 0
+  Scalar::Util: 0
+  Sub::Name: 0
+  perl: 5.6.0
+resources:
+  bugtracker: http://rt.cpan.org/Dist/Display.html?Queue=Object-AUTHORITY
+  homepage: https://metacpan.org/release/Object-AUTHORITY
+  license: http://dev.perl.org/licenses/
+  repository: https://bitbucket.org/tobyink/p5-object-authority
+version: 0.001
