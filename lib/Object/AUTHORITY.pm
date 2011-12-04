@@ -5,7 +5,7 @@ use strict;
 
 BEGIN {
 	$Object::AUTHORITY::AUTHORITY = 'cpan:TOBYINK';
-	$Object::AUTHORITY::VERSION   = '0.002';
+	$Object::AUTHORITY::VERSION   = '0.003';
 }
 
 use Carp qw[croak];

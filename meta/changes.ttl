@@ -25,3 +25,14 @@ dist:v_0-002
 		dcs:versus dist:v_0-001 ;
 		dcs:item   [ rdfs:label "Upgrade Module::Package::RDF."@en ; a dcs:Packaging , dcs:Bugfix ]
 		].
+
+dist:project :release dist:v_0-003 .
+dist:v_0-003
+	a               :Version ;
+	dc:issued       "2011-12-04"^^xsd:date ;
+	:revision       "0.003"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/Object-AUTHORITY-0.003.tar.gz> ;
+	dcs:changeset [
+		dcs:versus dist:v_0-002 ;
+		dcs:item   [ rdfs:label "Note dependency on Test::Exception."@en ; a dcs:Packaging , dcs:Bugfix ]
+		].
