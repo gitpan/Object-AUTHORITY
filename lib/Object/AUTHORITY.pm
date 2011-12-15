@@ -5,39 +5,19 @@ use strict;
 
 BEGIN {
 	$Object::AUTHORITY::AUTHORITY = 'cpan:TOBYINK';
-	$Object::AUTHORITY::VERSION   = '0.003';
+	$Object::AUTHORITY::VERSION   = '0.004';
 }
 
+use base qw/Object::Role/;
 use Carp qw[croak];
 use Scalar::Util qw[blessed];
-use Sub::Name qw[subname];
 
 sub import
 {
-	my ($invocant, @args) = @_;
-	
-	my %args;
-	while (defined(my $arg = shift @args))
-	{
-		if ($arg =~ /^-/)
-		{
-			$args{$arg} = shift @args;
-		}
-		else
-		{
-			push @{$args{-method}}, $arg;
-		}
-	}
-	
-	my $package = $args{-package} // caller;
-	$package = [$package] unless ref $package;
-	
-	for my $caller (@$package)
-	{
-		no strict 'refs';
-		my $name = "$caller\::AUTHORITY";
-		*$name = my $ref = subname($name, \&AUTHORITY);
-	}
+	my ($class, @args) = @_;
+	my ($caller, %args) = $class->parse_arguments(-method => @args);
+	$caller = [$caller] unless ref $caller;
+	$class->install_method(AUTHORITY => \&AUTHORITY, $_) foreach @$caller;
 }
 
 sub AUTHORITY
@@ -50,18 +30,11 @@ sub AUTHORITY
 		${"$invocant\::AUTHORITY"};
 		};
 	
-	if (scalar @_ > 1)
+	if (scalar @_ > 1 and not reasonably_smart_match($authority, $test))
 	{
-		if (defined $authority)
-		{
-			croak("Invocant ($invocant) has authority '$authority'")
-				unless reasonably_smart_match($authority, $test);
-		}
-		else
-		{
-			croak("Invocant ($invocant) has no authority defined")
-				unless reasonably_smart_match($authority, $test);
-		}
+		defined $authority
+			? croak("Invocant ($invocant) has authority '$authority'")
+			: croak("Invocant ($invocant) has no authority defined");
 	}
 	
 	return $authority;
@@ -157,7 +130,7 @@ classes wish to reuse it for their own custom C<AUTHORITY> methods. (There
 are various interesting use cases for custom C<AUTHORITY> methods, just as
 there are for custom C<can> and C<isa> methods.)
 
-The C<< $a >> parameter is assumed to be a scalar.
+The C<< $a >> parameter is always assumed to be a simple scalar.
 
 =back
 

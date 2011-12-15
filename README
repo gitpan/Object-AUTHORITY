@@ -44,7 +44,7 @@ DESCRIPTION
         (There are various interesting use cases for custom "AUTHORITY"
         methods, just as there are for custom "can" and "isa" methods.)
 
-        The $a parameter is assumed to be a scalar.
+        The $a parameter is always assumed to be a simple scalar.
 
 BUGS
     Please report any bugs to
